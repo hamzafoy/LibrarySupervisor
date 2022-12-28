@@ -7,7 +7,8 @@
         public string? Description { get; set; }
         public string? Author { get; set; }
         public string? Translator { get; set; }
-        public DateTime PublishDate { get; set; }
-        public string PublishingHouse { get; set; }
+        public DateTime? PublishDate { get; set; }
+        public string? PublishingHouse { get; set; }
+        public DateTime CreateDate { get; set; }
     }
 }
