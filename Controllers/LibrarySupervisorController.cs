@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using LibrarySupervisor.Models;
+using LibrarySupervisor.Repositories;
 
 namespace LibrarySupervisor.Controllers
 {
@@ -7,16 +9,18 @@ namespace LibrarySupervisor.Controllers
     public class LibrarySupervisorController : ControllerBase
     {
         private readonly ILogger<LibrarySupervisorController> _logger;
+        private readonly ILibraryRepository _libraryRepository;
 
-        public LibrarySupervisorController(ILogger<LibrarySupervisorController> logger)
+        public LibrarySupervisorController(ILogger<LibrarySupervisorController> logger, ILibraryRepository libraryRepository)
         {
             _logger = logger;
+            _libraryRepository = libraryRepository;
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
-        public string Get()
+        public List<LibraryBook> Get()
         {
-            return $"This is a test";
+            return _libraryRepository.Get().ToList();
         }
     }
 }
