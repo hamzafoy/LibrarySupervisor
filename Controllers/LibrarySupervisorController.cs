@@ -17,10 +17,17 @@ namespace LibrarySupervisor.Controllers
             _libraryRepository = libraryRepository;
         }
 
-        [HttpGet(Name = "GetWeatherForecast")]
+        [HttpGet("/GetAllBooks")]
         public List<LibraryBook> Get()
         {
             return _libraryRepository.Get().ToList();
+        }
+
+        [HttpPost("/PostABook")]
+        public ActionResult PostNewBook([FromBody] LibraryBook newBook)
+        {
+            _libraryRepository.Post(newBook);
+            return Created("", newBook);
         }
     }
 }

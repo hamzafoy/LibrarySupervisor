@@ -47,5 +47,34 @@ namespace LibrarySupervisor.Repositories
                 throw;
             }
         }
+
+        public void Post(LibraryBook book)
+        {
+            try
+            {
+                using (SqlCommand command = new SqlCommand("SPROC_LibraryBooksAdd"))
+                {
+                    command.Connection = dbConnect;
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@Title", book.Title);
+                    command.Parameters.AddWithValue("@Description", book.Description);
+                    command.Parameters.AddWithValue("@Author", book.Author);
+                    command.Parameters.AddWithValue("@Translator", book.Translator);
+                    command.Parameters.AddWithValue("@PublishDate", book.PublishDate);
+                    command.Parameters.AddWithValue("@PublishingHouse", book.PublishingHouse);
+                    command.Parameters.AddWithValue("@Edition", book.Edition);
+                    command.Parameters.AddWithValue("@Genre", book.Genre);
+                    command.Parameters.AddWithValue("@PageCount", book.PageCount);
+                    command.Parameters.AddWithValue("@ISBN", book.ISBN);
+                    command.Parameters.AddWithValue("@SeriesNumber", book.SeriesNumber);
+                    dbConnect.Open();
+                    command.ExecuteNonQuery();
+                    dbConnect.Close();
+                }
+            } catch (Exception ex)
+            {
+                throw;
+            }
+        }
     }
 }
